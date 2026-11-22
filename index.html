@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>drop</title>
+<meta name="description" content="drop je fizički newsletter koji vraća digitaliziranu umjetnost i medije u fizičku kopiju. Limited edition. Prijavi se za prvi drop.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="drop">
+<meta property="og:description" content="Fizički newsletter. Limited edition. Prijavi se za prvi drop.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://drop.hr/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<style>
+/* LAYOUT CONCEPT
+   Black screen, one centred Start button. The button opens a Luna-style window
+   that holds the only form. */
+
+@font-face{font-family:"Franklin";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/libre-franklin-latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Franklin";font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/libre-franklin-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Franklin";font-style:italic;font-weight:100 900;font-display:swap;src:url(assets/fonts/libre-franklin-latin-ext-wght-italic.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Franklin";font-style:italic;font-weight:100 900;font-display:swap;src:url(assets/fonts/libre-franklin-latin-wght-italic.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;src:url(assets/fonts/dm-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;src:url(assets/fonts/dm-mono-latin-500-normal.woff2) format("woff2")}
+
+:root{
+  /* colour: sampled from the sticker sheet */
+  --hill:#0ba14b;
+  --hill-deep:#0b7e4b;
+  --sun:#ffde16;
+  --pink:#f5bbd6;
+  --gold:#bf9b30;
+  --ink:#0b2540;
+  /* Luna chrome */
+  --xp-blue:#0a4fdc;
+  --xp-beige:#ece9d8;
+  /* type */
+  --display:"Franklin","Helvetica Neue",Arial,sans-serif;
+  --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --btn-h:clamp(72px,8.6vw,104px);
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;overflow:hidden;
+  background:#000;color:var(--ink);
+  font:500 15px/1.4 var(--display);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+button,input{font:inherit;color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ───────── scene: black, one button ───────── */
+.scene{position:relative;width:100%;height:100%;min-height:420px;overflow:hidden;isolation:isolate;background:#000}
+.layer{position:absolute;inset:0;pointer-events:none}
+.hero{position:absolute;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
+.start-wrap{pointer-events:auto;animation:fade .9s ease .2s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.start{
+  display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  height:54px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;
+  background:linear-gradient(180deg,#18a95a 0%,#0b8a47 55%,#09733c 100%);
+  color:#fff;font:italic 800 24px/1 var(--display);letter-spacing:-.02em;
+  text-shadow:0 1px 2px rgba(0,40,15,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -2px 4px rgba(0,40,15,.3);
+  transition:filter .2s ease,translate .1s ease;
+  -webkit-user-select:none;user-select:none;
+}
+.start:hover{filter:brightness(1.12)}
+.start:active,.start[aria-expanded="true"]{translate:0 1px;filter:brightness(.92)}
+.start:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.start .flag{width:24px;height:24px;flex:none;rotate:-6deg;filter:drop-shadow(0 1px 1px rgba(0,40,15,.5))}
+
+/* ───────── Luna window ───────── */
+.win{
+  position:absolute;left:50%;top:50%;z-index:10;
+  width:min(480px,calc(100% - 32px));max-height:calc(100% - 24px);
+  display:flex;flex-direction:column;
+  translate:calc(-50% + var(--dx,0px)) calc(-50% + var(--dy,0px));
+  border-radius:10px 10px 4px 4px;overflow:hidden;
+  background:var(--xp-blue);
+  box-shadow:0 0 0 1px #00219c,0 30px 70px rgba(0,0,0,.7);
+  transform-origin:50% 62%;
+}
+.win[hidden]{display:none}
+.win.is-opening{animation:winIn .55s cubic-bezier(.2,1.25,.3,1) both}
+.win.is-closing{animation:winOut .2s ease-in both}
+.win.is-wobble{animation:wobble .5s ease both}
+@keyframes winIn{from{scale:.14;opacity:0;rotate:-4deg}45%{opacity:1}to{scale:1;opacity:1;rotate:0deg}}
+@keyframes winOut{from{scale:1;opacity:1}to{scale:.14;opacity:0}}
+@keyframes wobble{0%,100%{rotate:0deg}20%{rotate:-1.6deg}45%{rotate:1.4deg}70%{rotate:-.7deg}}
+
+.bar{
+  flex:none;display:flex;align-items:center;gap:7px;height:32px;padding:0 5px 0 8px;touch-action:none;cursor:default;
+  -webkit-user-select:none;user-select:none;
+  background:linear-gradient(180deg,#0997ff 0%,#0053ee 9%,#0050ee 42%,#0066ff 86%,#0066ff 92%,#005bff 95%,#003dd7 98%,#003dd7 100%);
+  border-bottom:1px solid #0030b8;
+}
+.bar .ico{flex:none;width:18px;height:18px}
+.bar h2{margin:0;flex:1;min-width:0;font:800 14px/1 var(--display);letter-spacing:.01em;color:#fff;text-shadow:1px 1px 0 #0f1089;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb{
+  flex:none;display:grid;place-items:center;width:22px;height:22px;padding:0;cursor:pointer;
+  border:1px solid #fff;border-radius:4px;
+  background:radial-gradient(circle at 28% 22%,#7bb1ff 0%,#2a63df 55%,#1b44b8 100%);
+  box-shadow:inset 0 -1px 2px rgba(0,0,30,.35);
+}
+.tb svg{width:12px;height:12px;display:block}
+.tb:hover{filter:brightness(1.18)}
+.tb:active{filter:brightness(.85)}
+.tb--x{background:radial-gradient(circle at 28% 22%,#f4b09a 0%,#d6522b 55%,#b02808 100%)}
+.tb:focus-visible{outline:2px solid #fff;outline-offset:1px}
+
+.win__body{
+  display:flex;flex-direction:column;min-height:0;overflow:auto;
+  margin:0 4px 4px;background:var(--xp-beige);
+}
+.head{
+  display:flex;gap:16px;align-items:center;justify-content:space-between;
+  padding:18px 18px 16px 20px;background:#fff;border-bottom:1px solid #aca899;
+  box-shadow:0 1px 0 #fff;
+}
+.head h3{margin:0 0 6px;font:italic 900 clamp(22px,5.4vw,27px)/1.02 var(--display);letter-spacing:-.025em;word-spacing:.1em;color:var(--ink);text-wrap:balance}
+.head p{margin:0;font-size:13.5px;line-height:1.45;color:#3b4a5c;max-width:30ch;text-wrap:pretty}
+.head .sticker{flex:none;width:96px;height:auto;rotate:7deg;filter:drop-shadow(2px 3px 0 rgba(11,37,64,.2))}
+
+.pane{padding:18px 20px 20px;min-height:172px}
+.pane[hidden]{display:none}
+.field label{display:block;margin:0 0 7px;font-weight:700;font-size:13px}
+.field input[type=email]{
+  display:block;width:100%;height:38px;padding:0 11px;
+  font-size:16px;font-weight:500;color:#000;background:#fff;
+  border:1px solid #7f9db9;border-radius:2px;
+  box-shadow:inset 1px 1px 0 #d4d0c8;
+}
+.field input[type=email]::placeholder{color:#8794a3}
+.field input[type=email]:focus{outline:0;border-color:#2b6cc4;box-shadow:inset 1px 1px 0 #d4d0c8,0 0 0 3px rgba(51,170,225,.55)}
+.field input[aria-invalid=true]{border-color:#c0391b}
+.hint{margin:9px 0 0;font-size:12px;line-height:1.4;color:#5b6675}
+.err{display:flex;gap:7px;align-items:flex-start;margin:9px 0 0;font-size:12.5px;font-weight:700;line-height:1.35;color:#b3260c}
+.err[hidden]{display:none}
+.err svg{flex:none;width:16px;height:16px;margin-top:-1px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.foot{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.xpbtn{
+  min-width:92px;height:29px;padding:0 16px;cursor:pointer;
+  font:600 13px/1 var(--display);color:#000;
+  border:1px solid #003c74;border-radius:3px;
+  background:linear-gradient(180deg,#fff 0%,#f5f4ef 55%,#dcd7ca 100%);
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.05);
+}
+.xpbtn:hover{box-shadow:inset 0 0 0 2px #f8b330,inset 0 -2px 0 rgba(0,0,0,.05)}
+.xpbtn:active{background:linear-gradient(180deg,#d6d1c3,#e8e5da);box-shadow:inset 1px 1px 2px rgba(0,0,0,.25)}
+.xpbtn--main{box-shadow:inset 0 0 0 2px #8fb4f0,inset 0 -2px 0 rgba(0,0,0,.05)}
+.xpbtn--main:hover{box-shadow:inset 0 0 0 2px #f8b330}
+.xpbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.prog{height:20px;padding:2px;background:#fff;border:1px solid #686868;border-radius:4px;box-shadow:inset 1px 1px 2px rgba(0,0,0,.2);overflow:hidden;position:relative}
+.prog b{
+  position:absolute;top:2px;bottom:2px;left:2px;width:96px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,transparent 0 1px,#fff 1px 2px,transparent 2px 8px),linear-gradient(180deg,#9dec9a 0%,#37c437 40%,#1fa31f 100%);
+  background-blend-mode:normal;
+  -webkit-mask-image:repeating-linear-gradient(90deg,#000 0 8px,transparent 8px 10px);mask-image:repeating-linear-gradient(90deg,#000 0 8px,transparent 8px 10px);
+  animation:march 1.15s linear infinite;
+}
+@keyframes march{from{left:-100px}to{left:100%}}
+.done{display:flex;gap:16px;align-items:center}
+.done svg{flex:none;width:54px;height:54px;filter:drop-shadow(2px 3px 0 rgba(11,37,64,.22))}
+.done p{margin:0;min-width:0;font-size:13.5px;line-height:1.5;color:#3b4a5c;overflow-wrap:anywhere}
+.done strong{color:#000;font-size:15px}
+.pane[data-pane=busy]:not([hidden]){display:flex;flex-direction:column;justify-content:center}
+
+/* ───────── falling stickers ───────── */
+.rain{z-index:9;overflow:hidden}
+.sticker-fall{position:absolute;display:block;height:auto;will-change:transform}
+
+/* ───────── small screens ───────── */
+@media (max-width:620px){
+  .head{padding:16px 16px 14px}
+  .head .sticker{width:76px}
+  .pane{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .start-wrap,.prog b{animation:none!important}
+  .win.is-opening,.win.is-closing,.win.is-wobble{animation:none!important}
+  .prog b{left:30%}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="logo-word" fill="#fff" viewBox="-2.52 -1.50 209.94 105.89"><defs><g id="logo-word-shape" transform="translate(-57.699 -111.773)"><path d="M 122.93 139.58 C 123.23 135.10 119.55 134.01 115.73 134.95 C 111.86 135.87 107.84 138.80 106.19 141.85 C 103.07 147.12 97.53 154.72 95.00 159.74 C 107.14 157.76 120.77 146.70 122.93 139.58 M 139.84 141.87 C 139.41 145.82 136.51 148.89 132.97 152.09 C 129.37 155.25 125.14 158.54 120.76 161.91 C 112.01 168.64 102.40 175.51 92.18 179.10 C 82.10 182.81 71.20 182.99 64.35 179.91 C 60.98 178.41 58.73 176.19 58.23 173.42 C 57.69 170.62 58.89 167.27 61.63 163.07 C 70.23 154.03 81.5 144.25 86.77 134.63 C 92.98 130.10 98.97 126.66 103.93 124.17 C 109.03 121.73 113.08 120.24 118.64 120.59 C 123.75 120.87 130.35 123.00 135.20 126.82 C 140 130.58 143.05 136.04 139.84 141.87 "/><path d="M 142.97 178.30 C 143.26 183.62 139.60 187.06 133.54 187.04 C 127.76 187.14 119.58 183.76 117.60 178.21 C 112.92 164.83 129.14 155.71 136.29 146.99 C 141.46 141.19 144.94 138.51 151.08 140.42 C 156.58 142.35 158.25 140.08 163.89 137.93 C 167.43 136.48 170.32 137.12 171.88 138.87 C 173.48 140.61 173.77 143.46 172.92 146.48 C 171.17 152.61 165.04 159.16 157.70 160.80 C 150.82 162.87 147.97 159.41 151.53 154.30 C 151.49 151.69 148.45 153.84 145.79 157.21 C 143.08 160.56 140.76 165.14 141.03 166.73 C 140.27 170.36 142.26 174.56 142.97 178.30 "/><path d="M 196.48 141.77 C 196.02 133.66 191.85 134.82 188.07 138.62 C 186.12 140.49 184.08 142.94 182.33 145.14 C 180.63 147.37 179.21 149.36 179.32 150.89 C 179.15 156.35 183.91 155.94 188.28 153.00 C 192.70 150.14 196.73 144.75 196.48 141.77 M 166.28 154.5 C 167.70 150.57 170.09 147.19 172.37 143.85 C 174.69 140.53 176.89 137.24 178.90 134.05 C 182.90 127.70 186.34 121.77 191.15 119.17 C 195.58 116.44 202.08 117.40 206.85 122.67 C 211.60 127.83 214.63 137.30 211.45 148.94 C 208.74 163.71 198.28 172.58 186.19 173.66 C 180.23 174.21 173.92 172.81 169.43 169.5 C 165.03 166.21 162.46 161.00 166.28 154.5 "/><path d="M 235.97 138.72 C 231.91 129.66 229.34 132.75 226.84 138.35 C 224.58 144.04 222.38 152.24 224.43 155.55 C 228.32 162.12 232.66 159.98 234.90 154.89 C 237.26 149.88 237.53 141.93 235.97 138.72 M 238.01 181.60 C 237.77 184.35 243.17 188.30 245.87 191.65 C 253.60 201.67 244.14 203.63 232.84 199.58 C 223.30 195.39 215.42 190.37 210.48 185.36 C 205.45 180.32 203.36 175.30 203.11 170.33 C 202.78 160.56 208.98 150.42 209.21 141.35 C 208.48 127.87 209.31 123.59 213.15 122.60 C 216.69 121.43 223.24 123.54 227.08 118.71 C 229.80 113.97 233.13 111.77 238.42 113.92 C 243.19 116.98 248.31 121.58 252.67 127.59 C 257.02 133.55 260.60 140.92 262.09 148.25 C 263.62 155.57 263.04 162.85 259.95 168.35 C 256.94 173.89 251.41 177.65 245.00 178.64 C 242.30 179.26 238.49 179.41 238.01 181.60 "/></g></defs><use href="#logo-word-shape" x="-1.016" y="7.340" opacity="0.50"/><use href="#logo-word-shape" x="0.000" y="3.684" opacity="0.50"/><use href="#logo-word-shape"/></symbol>
+<symbol id="logo-mono" fill="#fff" viewBox="-1.50 -1.50 195.12 246.79"><defs><g id="logo-mono-shape" transform="translate(-57.750 -39.102)"><path d="M 150.09 81.18 C 144.91 61.87 129.03 74.72 130.13 86.07 C 130.14 86.16 130.14 86.23 130.15 86.32 C 130.28 95.13 130.77 106.66 131.20 114.85 C 131.33 117.00 133.75 118.53 136.01 117.87 C 147.67 114.86 152.24 96.51 150.22 81.83 C 150.19 81.61 150.15 81.39 150.09 81.18 M 174.37 85.07 C 177.72 101.72 173.54 117.99 166.03 128.63 C 158.45 139.59 147.55 144.92 135.87 147.14 C 124.22 149.30 111.80 148.34 101.78 145.66 C 91.88 142.56 84.39 137.74 85.30 122.73 C 85.31 122.53 85.35 122.32 85.44 122.10 C 91.05 107.02 98.01 95.23 98.35 75.74 C 98.37 75.13 98.55 74.48 98.93 73.85 C 109.06 60.02 123.03 42.20 139.58 41.10 C 155.33 39.10 173.67 53.82 174.26 84.06 C 174.27 84.40 174.31 84.75 174.37 85.07 "/><path d="M 202.10 154.03 C 202.11 154.37 202.07 154.73 201.99 155.07 C 197.75 172.70 169.63 168.75 166.72 153.64 C 162.67 136.33 172.93 119.76 174.48 98.83 C 176.10 85.11 179.67 78.06 189.64 79.44 C 199.12 80.60 199.95 74.41 207.94 65.25 C 218.25 53.71 227.78 57.66 232.04 69.62 C 236.21 81.25 235.12 100.88 222.12 112.92 C 222.03 113.00 221.95 113.09 221.87 113.17 C 211.73 123.58 204.82 119.36 204.05 108.84 C 203.94 107.54 203.45 106.43 202.64 105.89 C 197.54 102.64 196.83 130.51 197.96 135.67 C 198.00 135.87 198.04 136.05 198.06 136.25 C 198.72 142.57 201.96 148.58 202.10 154.03 "/><path d="M 118.42 160.33 C 116.71 138.46 83.24 163.22 87.02 171.60 C 94.73 186.46 120.15 167.92 118.42 160.33 M 59.99 183.35 C 57.75 175.00 66.75 161.98 78.03 152.53 C 89.5 142.79 103.23 136.63 114.79 135.5 C 138.37 133.37 152.41 150.08 145.19 179.63 C 145.16 179.72 145.14 179.82 145.13 179.92 C 143.12 200.46 124.89 209.25 103.64 208.59 C 82.99 208.03 59.32 198.02 59.99 183.35 "/><path d="M 188.61 183.99 C 180.70 158.74 161.87 187.28 167.62 199.25 C 178.94 224.01 192.29 194.41 188.61 183.99 M 182.55 244.21 C 181.07 247.98 187.07 256.02 189.02 261.76 C 194.69 278.55 172.88 276.23 158.75 266.34 C 158.34 266.05 157.94 265.73 157.56 265.37 C 136.60 245.81 133.28 226 134.65 209.64 C 136.15 193.06 142.34 179.94 143.12 168.36 C 143.13 168.21 143.13 168.05 143.12 167.90 C 142.59 133.48 160.59 160.30 179.96 155.90 C 180.14 155.85 180.31 155.78 180.47 155.71 C 187.80 152.36 195.57 150.44 204.89 153.23 C 205.14 153.31 205.39 153.40 205.62 153.52 C 223.23 160.03 233.07 185.36 230.28 207.35 C 228.02 229.42 213.13 248.14 193.75 243.39 C 189.64 242.99 184.11 241.34 182.55 244.21 "/></g></defs><use href="#logo-mono-shape" x="9.426" y="2.891" opacity="0.48"/><use href="#logo-mono-shape" x="4.223" y="1.445" opacity="0.48"/><use href="#logo-mono-shape"/></symbol>
+<symbol id="flag" viewBox="0 0 40 40">
+  <path fill="#f5bbd6" d="M3 7C8 3.5 12 10 18.5 6.5L18.5 18C12 21.5 8 15 3 18.5Z"/>
+  <path fill="#ffde16" d="M21.5 6C27 3 31 8.5 37 5L37 16.5C31 20 27 14.5 21.5 17.5Z"/>
+  <path fill="#5cbbe7" d="M3 21.5C8 18 12 24.5 18.5 21L18.5 32.5C12 36 8 29.5 3 33Z"/>
+  <path fill="#fff" d="M21.5 20.5C27 17.5 31 23 37 19.5L37 31C31 34.5 27 29 21.5 32Z"/>
+</symbol>
+<symbol id="i-err" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.3" fill="#d6522b" stroke="#fff" stroke-width="1"/><path d="M5.2 5.2l5.6 5.6M10.8 5.2l-5.6 5.6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></symbol>
+<linearGradient id="g-ok" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fe08f"/><stop offset=".55" stop-color="#0ba14b"/><stop offset="1" stop-color="#08803c"/></linearGradient>
+</defs>
+</svg>
+
+<main class="scene" id="scene">
+  <h1 class="sr-only">drop</h1>
+
+  <div class="hero">
+    <div class="start-wrap">
+      <button class="start" id="start" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="win" aria-label="Start: prijava za prvi drop">
+        <svg class="flag" aria-hidden="true"><use href="#flag"/></svg>
+        <span>start</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="layer rain" id="rain" aria-hidden="true"></div>
+
+  <section class="win" id="win" role="dialog" aria-labelledby="win-title" aria-describedby="win-desc" tabindex="-1" hidden>
+    <div class="bar" id="bar">
+      <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#5cbbe7"/><use href="#logo-mono" x="8.5" y="5.5" width="16" height="20.2"/></svg>
+      <h2 id="win-title">drop.exe</h2>
+      <button class="tb" type="button" id="btn-min" aria-label="Smanji"><svg viewBox="0 0 12 12"><path d="M2 9h6" stroke="#fff" stroke-width="2.4"/></svg></button>
+      <button class="tb" type="button" id="btn-max" aria-label="Povećaj"><svg viewBox="0 0 12 12" fill="none"><rect x="2" y="2" width="8" height="8" stroke="#fff" stroke-width="1.6"/><path d="M2 2.8h8" stroke="#fff" stroke-width="2.4"/></svg></button>
+      <button class="tb tb--x" type="button" id="btn-x" aria-label="Zatvori"><svg viewBox="0 0 12 12"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    </div>
+
+    <div class="win__body" id="body" data-view="form">
+      <header class="head">
+        <div>
+          <h3 id="head-title">Prvi drop stiže uskoro.</h3>
+          <p id="win-desc">Upiši svoj e-mail. Javit ćemo ti se čim bude spremno za kupnju.</p>
+        </div>
+        <svg class="sticker" viewBox="0 0 276 148" aria-hidden="true"><ellipse cx="138" cy="74" rx="137.5" ry="73.5" fill="#5cbbe7"/><use href="#logo-word" x="33" y="20" width="210" height="106"/></svg>
+      </header>
+
+      <form class="pane" id="form" data-pane="form" novalidate autocomplete="on">
+        <div class="field">
+          <label for="email">E-mail adresa:</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="ime@mail.com" required aria-describedby="hint err">
+          <p class="err" id="err" role="alert" hidden><svg aria-hidden="true"><use href="#i-err"/></svg><span id="err-txt"></span></p>
+          <p class="hint" id="hint">Koristimo ga samo za obavijest o dropu.</p>
+          <input class="hp" id="hp-field" name="hp_field" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </div>
+        <div class="foot">
+          <button class="xpbtn xpbtn--main" type="submit" id="send">Prijavi me</button>
+          <button class="xpbtn" type="button" data-close>Zatvori</button>
+        </div>
+      </form>
+
+      <div class="pane" data-pane="busy" hidden aria-live="polite">
+        <div class="prog" role="progressbar" aria-label="Spremam tvoju prijavu"><b></b></div>
+      </div>
+
+      <div class="pane" data-pane="done" hidden aria-live="polite">
+        <div class="done">
+          <svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="url(#g-ok)" stroke="#fff" stroke-width="2.5"/><path d="M15.5 28l8 8 15.5-17.5" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p>Prijavljena adresa:<br><strong id="done-mail"></strong></p>
+        </div>
+        <div class="foot"><button class="xpbtn xpbtn--main" type="button" data-close>Zatvori</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ── Email capture ───────────────────────────────────────────────
+     Put your form endpoint here (Formspree, Buttondown, Mailchimp,
+     Google Apps Script, your own API). It receives a JSON POST:
+       { email, source, ts }
+     While this is empty the page runs in demo mode: the address is only
+     kept in this browser's localStorage and nothing is sent anywhere.   */
+  const CONFIG = { endpoint: '' };
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const scene = $('#scene'), btn = $('#start');
+  const win = $('#win'), bar = $('#bar'), body = $('#body');
+  const form = $('#form'), email = $('#email'), err = $('#err'), errTxt = $('#err-txt'), hp = $('#hp-field');
+  const headTitle = $('#head-title'), headDesc = $('#win-desc');
+  const rain = $('#rain');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const copy = {
+    form: ['Prvi drop stiže uskoro.', 'Upiši svoj e-mail. Javit ćemo ti se čim bude spremno za kupnju.'],
+    busy: ['Samo trenutak.', 'Spremamo tvoju prijavu.'],
+    done: ['Zapisali smo te.', 'Javit ćemo ti se čim prvi drop bude spreman.']
+  };
+
+  /* ── window state ── */
+  function setView(v) {
+    body.dataset.view = v;
+    document.querySelectorAll('[data-pane]').forEach(p => { p.hidden = p.dataset.pane !== v; });
+    headTitle.textContent = copy[v][0];
+    headDesc.textContent = copy[v][1];
+  }
+  function openWin() {
+    if (!win.hidden && !win.classList.contains('is-closing')) { email.focus(); return; }
+    if (body.dataset.view === 'done') { form.reset(); setView('form'); }
+    win.hidden = false;
+    win.classList.remove('is-closing');
+    void win.offsetWidth;
+    win.classList.add('is-opening');
+    btn.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(() => { if (fine) email.focus({ preventScroll: true }); else win.focus({ preventScroll: true }); });
+  }
+  function closeWin() {
+    if (win.hidden || win.classList.contains('is-closing')) return;
+    win.classList.remove('is-opening');
+    btn.setAttribute('aria-expanded', 'false');
+    const end = () => { win.hidden = true; win.classList.remove('is-closing'); btn.focus({ preventScroll: true }); };
+    if (reduce) return end();
+    win.classList.add('is-closing');
+    win.addEventListener('animationend', end, { once: true });
+  }
+  function wobble() {
+    if (reduce) return;
+    win.classList.remove('is-opening', 'is-wobble'); void win.offsetWidth; win.classList.add('is-wobble');
+  }
+
+  btn.addEventListener('click', () => (win.hidden ? openWin() : closeWin()));
+  win.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeWin));
+  $('#btn-x').addEventListener('click', closeWin);
+  $('#btn-min').addEventListener('click', closeWin);
+  $('#btn-max').addEventListener('click', wobble);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !win.hidden) closeWin(); });
+
+  /* ── drag by title bar ── */
+  let drag = null, dx = 0, dy = 0;
+  bar.addEventListener('pointerdown', e => {
+    if (e.target.closest('.tb')) return;
+    drag = { x: e.clientX, y: e.clientY, dx, dy };
+    bar.setPointerCapture(e.pointerId);
+  });
+  bar.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const s = scene.getBoundingClientRect(), w = win.getBoundingClientRect();
+    let nx = drag.dx + e.clientX - drag.x, ny = drag.dy + e.clientY - drag.y;
+    const mx = nx - dx, my = ny - dy; // proposed delta from current position
+    const left = w.left - s.left + mx, top = w.top - s.top + my;
+    if (left < -w.width + 120) nx -= left + w.width - 120;
+    if (left > s.width - 120) nx -= left - (s.width - 120);
+    if (top < 0) ny -= top;
+    if (top > s.height - 40) ny -= top - (s.height - 40);
+    dx = nx; dy = ny;
+    win.style.setProperty('--dx', dx + 'px'); win.style.setProperty('--dy', dy + 'px');
+  });
+  const endDrag = () => { drag = null; };
+  bar.addEventListener('pointerup', endDrag); bar.addEventListener('pointercancel', endDrag);
+
+  /* ── form ── */
+  const valid = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  function showErr(msg) {
+    errTxt.textContent = msg; err.hidden = false;
+    email.setAttribute('aria-invalid', 'true'); email.focus();
+    wobble();
+  }
+  function clearErr() { err.hidden = true; email.removeAttribute('aria-invalid'); }
+  email.addEventListener('input', clearErr);
+
+  async function send(address) {
+    const payload = { email: address, source: 'drop.hr', ts: new Date().toISOString() };
+    if (!CONFIG.endpoint) {
+      try {
+        const list = JSON.parse(localStorage.getItem('drop:emails') || '[]');
+        list.push(payload); localStorage.setItem('drop:emails', JSON.stringify(list));
+      } catch (_) { /* storage unavailable, demo mode only */ }
+      console.info('[drop] demo mode: set CONFIG.endpoint to collect emails.', payload);
+      return;
+    }
+    const res = await fetch(CONFIG.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = email.value.trim();
+    if (!valid(v)) { showErr('Upiši ispravnu e-mail adresu.'); return; }
+    clearErr();
+    setView('busy');
+    const t0 = performance.now();
+    let ok = true;
+    if (!hp.value) { try { await send(v); } catch (_) { ok = false; } }   // honeypot filled = bot, fake success
+    await sleep(Math.max(0, 1500 - (performance.now() - t0)));
+    if (ok) { $('#done-mail').textContent = v; setView('done'); dropStickers(); win.querySelector('[data-pane=done] .xpbtn').focus({ preventScroll: true }); }
+    else { setView('form'); showErr('Nešto nije u redu. Pokušaj ponovno.'); }
+  });
+
+  /* ── falling stickers ── */
+  const WAYS = [
+    { bg: '#5cbbe7' },
+    { bg: '#0ba14b' },
+    { bg: '#0ba14b', ring: '#ffde16' },
+    { bg: '#bf9b30', ring: '#ffdc73' },
+    { bg: '#f5bbd6' },
+    { bg: '#0b7e4b' }
+  ];
+  const sticker = w => `<svg viewBox="0 0 276 148" aria-hidden="true">${
+    w.ring ? `<ellipse cx="138" cy="74" rx="137.5" ry="73.5" fill="${w.ring}"/><ellipse cx="138" cy="74" rx="125" ry="61.5" fill="${w.bg}"/>`
+           : `<ellipse cx="138" cy="74" rx="137.5" ry="73.5" fill="${w.bg}"/>`
+  }<use href="#logo-word" x="33" y="20" width="210" height="106"/></svg>`;
+  let rained = 0;
+  function dropStickers() {
+    if (rained > 60) return;
+    const W = scene.clientWidth, H = scene.clientHeight;
+    const n = W < 620 ? 14 : 24;
+    const base = Math.max(86, Math.min(150, W * .1));
+    for (let i = 0; i < n; i++) {
+      const w = base * (.75 + Math.random() * .6), h = w * 148 / 276;
+      const x = Math.random() * (W - w), land = H * (.7 + Math.random() * .24) - h / 2;
+      const rot = (Math.random() - .5) * 56, spin = (Math.random() - .5) * 240;
+      const el = document.createElement('div');
+      el.className = 'sticker-fall';
+      el.style.cssText = `left:${x}px;top:${land}px;width:${w}px;z-index:${Math.round(land)};rotate:${rot}deg`;
+      el.innerHTML = sticker(WAYS[(Math.random() * WAYS.length) | 0]);
+      el.firstChild.style.display = 'block';
+      rain.appendChild(el);
+      rained++;
+      if (reduce) continue;
+      const from = -(land + h + 60);
+      el.animate([
+        { transform: `translateY(${from}px) rotate(${spin}deg)`, offset: 0, easing: 'cubic-bezier(.55,0,.9,.55)' },
+        { transform: 'translateY(0) rotate(0deg)', offset: .62, easing: 'cubic-bezier(.2,.7,.4,1)' },
+        { transform: `translateY(${-h * .32}px) rotate(${spin * .06}deg)`, offset: .8, easing: 'cubic-bezier(.6,0,.9,.6)' },
+        { transform: 'translateY(0) rotate(0deg)', offset: 1 }
+      ], { duration: 1500 + Math.random() * 700, delay: i * 65 + Math.random() * 120, fill: 'backwards' });
+    }
+  }
+})();
+</script>
+</body>
+</html>
