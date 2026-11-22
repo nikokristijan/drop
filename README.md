@@ -1,6 +1,6 @@
 # drop – teaser stranica
 
-Jedna statična stranica: nebo, logo, **start** tipka → XP prozor → upis e-maila.
+Jedna statična stranica: crna pozadina, **start** tipka → XP prozor → upis e-maila.
 Nema build koraka, nema ovisnosti. Cijela stranica je `index.html` + `assets/`.
 
 ```
@@ -47,8 +47,8 @@ pravim URL-om (scraperi traže apsolutni link).
 
 - **Tekstovi**: u `index.html` traži `Prvi drop stiže uskoro.` (naslov prozora)
   i objekt `copy` u JS-u (naslovi stanja "učitavanje" i "gotovo").
-- **Boje**: tokeni na vrhu `<style>` (`--sky`, `--hill`, `--sun`, ...), uzeti iz naljepnica.
-- **Oznake u kutovima** (`@drop.hr`, `Nº 001`, `Limited edition`, `2026`): klase `.tag--*`.
+- **Tipka**: klasa `.start` u `<style>` (veličina, boja, tekst).
+- **Naljepnice koje padaju nakon prijave**: funkcija `dropStickers()` u JS-u; obriši poziv ako ih ne želiš.
 - **Privola**: tekst ispod polja ("Koristimo ga samo za obavijest o dropu.") prilagodi
   svojoj politici privatnosti (GDPR), po potrebi dodaj link.
 
